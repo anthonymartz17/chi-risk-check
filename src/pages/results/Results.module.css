@@ -3,6 +3,7 @@
 	grid-template-columns: 20% 1fr;
 	gap: 1em;
 	height: 100%;
+	overflow-y: auto;
 }
 
 .sidebar {
@@ -13,13 +14,15 @@
 }
 
 .results_display {
+	
 	display: grid;
+	
 	grid-template-columns: 1fr 1fr;
 	grid-template-rows: auto;
 	gap: 2em;
+
 }
 .results_likelyhood {
-
 }
 .likelyhood_crimes {
 	display: flex;
@@ -30,4 +33,9 @@
 }
 .results_graphics {
 	width: 50%;
+}
+
+.result_piechart{
+width: 200px;
+height: 200px;
 }
