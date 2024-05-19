@@ -1,0 +1,30 @@
+.header {
+	background-color: grey;
+	display: grid;
+	grid-template-columns: 20% 1fr;
+	padding-inline: 1em;
+}
+
+.header_logo {
+	/* background-color: blue; */
+	display: flex;
+	align-items: center;
+}
+.header_logo img {
+	max-width: 100px;
+}
+.header_nav_container {
+	display: flex;
+	justify-content: end;
+	align-items: center;
+}
+.header_nav {
+	display: flex;
+	gap: 1em;
+}
+.header_item {
+}
+.header_nav_item_link {
+	text-decoration: none;
+	padding: 0.5em 1em;
+}

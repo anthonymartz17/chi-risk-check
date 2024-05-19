@@ -1,0 +1,21 @@
+.form_date_picker {
+	border-radius: 5px;
+}
+
+.form_input_address {
+	border: 0.5px solid grey;
+	padding: 5px;
+}
+
+.form_inputs {
+	display: grid;
+	gap: 1em;
+	margin-bottom: 1em;
+}
+
+.form_submit_btn{
+  background-color: grey;
+  padding: .5em 2em;
+  border-radius: 5px;
+  cursor: pointer;
+}

@@ -1,0 +1,33 @@
+.results {
+	display: grid;
+	grid-template-columns: 20% 1fr;
+	gap: 1em;
+	height: 100%;
+}
+
+.sidebar {
+	background-color: lightgray;
+	padding: 1em;
+	height: 95%;
+	border-radius: 5px;
+}
+
+.results_display {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: auto;
+	gap: 2em;
+}
+.results_likelyhood {
+
+}
+.likelyhood_crimes {
+	display: flex;
+	justify-content: space-between;
+	box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+		rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+	padding: 1em;
+}
+.results_graphics {
+	width: 50%;
+}
