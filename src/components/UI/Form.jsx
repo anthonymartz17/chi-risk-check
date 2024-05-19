@@ -5,11 +5,16 @@ import DatePicker from "react-date-picker";
 import "react-date-picker/dist/DatePicker.css";
 import "react-calendar/dist/Calendar.css";
 
-export default function Form() {
+export default function Form({ onGetCrimeData }) {
 	const [date, setDate] = useState("");
 	const [address, setAddress] = useState("");
 
-	function handleSubmit() {}
+	function handleSubmit(e) {
+		e.preventDefault();
+		const formatted = new Date(date).toISOString().split("T")[0];
+
+		// onGetCrimeData({ address, date: formatted });
+	}
 
 	return (
 		<form onSubmit={handleSubmit}>

@@ -1,13 +1,29 @@
 import React from "react";
 import { AgChartsReact } from "ag-charts-react";
-export default function MostDangerousBlocks() {
+import { useState, useEffect } from "react";
+export default function MostDangerousBlocks({ crimes }) {
+	const [dangerousBlocks, setDangerousBlocks] = useState([]);
+
+	function generateMostDangerousBlocks(crimes) {
+		const count = {};
+
+		crimes.forEach((ele) => {
+			count[ele.block] = count[ele.block] + 1 || 1;
+		});
+
+		const blocksFormatted = Object.entries(count).map((ele) => ({
+			category: ele[0],
+			count: ele[1],
+			value: (ele[1] * 100) / crimes.length,
+		}));
+		setDangerousBlocks(blocksFormatted);
+	}
+
+	useEffect(() => {
+		generateMostDangerousBlocks(crimes);
+	}, []);
 	const barChartOptions = {
-		data: [
-			{ category: "Apples", value: 40 },
-			{ category: "Oranges", value: 30 },
-			{ category: "Bananas", value: 20 },
-			{ category: "Grapes", value: 10 },
-		],
+		data: dangerousBlocks,
 		series: [
 			{
 				type: "bar",

@@ -1,11 +1,11 @@
 import React from "react";
 import Form from "../../../components/UI/Form";
 
-export default function SideBar() {
+export default function SideBar({onGetCrimeData}) {
 	return (
 		<div>
 			<div>
-				<Form />
+				<Form onGetCrimeData={ onGetCrimeData}/>
 			</div>
 		</div>
 	);
