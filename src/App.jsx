@@ -10,12 +10,12 @@ import { geocodeAddress, fetchCrimeData } from "./services/chicagoApi";
 import { crimes } from "./assets/mockup_db";
 
 function App() {
+	const [crimeData, setCrimeData] = useState(crimes);
 	async function getCrimeData(payload) {
 		try {
 			const { lat, lng } = await geocodeAddress(payload.address);
-			const response = await fetchCrimeData({ date: payload.date, lat, lng });
-
-			console.log(response, "crime data");
+			const data = await fetchCrimeData({ date: payload.date, lat, lng });
+			setCrimeData(data);
 		} catch (error) {
 			console.log(error, "error apjsx");
 		}
@@ -31,14 +31,14 @@ function App() {
 							<Route
 								path="/results"
 								element={
-									<Results onGetCrimeData={getCrimeData} crimes={crimes} />
+									<Results onGetCrimeData={getCrimeData} crimes={crimeData} key={crimeData}/>
 								}
 							/>
 							<Route path="/about" element={<About />} />
 						</Routes>
 					</main>
 
-					<Footer />
+					{/* <Footer /> */}
 				</div>
 			</Router>
 		</>

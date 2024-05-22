@@ -13,19 +13,18 @@ export default function Results({ onGetCrimeData, crimes }) {
 				<SideBar onGetCrimeData={onGetCrimeData} />
 			</div>
 			<div className={classes.results_display}>
-				<div className={`${classes.results_likelyhood} card`}>
+				<div className={classes.results_card}>
 					<LikelyHoodChart crimes={crimes} />
 				</div>
-				<div className="card">
+				<div className={classes.results_card}>
 					<MostDangerousHours crimes={crimes} />
 				</div>
-				<div className="card">
+				<div className={classes.results_card}>
 					<MostDangerousBlocks crimes={crimes} />
 				</div>
-				<div className="card">
-					<h2>Percentage of Arrests Made</h2>
 
-					{/* <ArrestsPieChart className={classes.result_piechart } /> */}
+				<div className={classes.results_card}>
+					<ArrestsPieChart crimes={crimes} />
 				</div>
 			</div>
 		</div>

@@ -24,30 +24,44 @@ export default function MostDangerousBlocks({ crimes }) {
 	}, []);
 	const barChartOptions = {
 		data: dangerousBlocks,
+		title: {
+			text: "Most dangerous blocks",
+			color: "white",
+		},
 		series: [
 			{
 				type: "bar",
 				xKey: "category",
 				yKey: "value",
-				fills: ["#f8a1d1", "#f2b809", "#7adf8c", "#9bc3e6"],
-				strokes: ["#d078b5", "#b08b05", "#5ba664", "#7094b2"],
+				fill: "#ff6500", // Orange color for bars
 			},
 		],
+		background: {
+			fill: "black",
+		},
 		axes: [
 			{
 				type: "category",
 				position: "bottom",
 				label: {
 					rotation: 30,
+					color: "#ffffff",
 				},
 			},
 			{
 				type: "number",
 				position: "left",
+				label: {
+					color: "#ffffff",
+				},
 			},
 		],
+
 		legend: {
 			enabled: true,
+			label: {
+				color: "red", // White color for legend text
+			},
 		},
 	};
 

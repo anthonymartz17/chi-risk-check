@@ -12,7 +12,6 @@ export default function Form({ onGetCrimeData }) {
 	function handleSubmit(e) {
 		e.preventDefault();
 		const formatted = new Date(date).toISOString().split("T")[0];
-
 		// onGetCrimeData({ address, date: formatted });
 	}
 
@@ -39,7 +38,7 @@ export default function Form({ onGetCrimeData }) {
 				/>
 			</div>
 			<div>
-				<button className={classes.form_submit_btn}>Find out</button>
+				<button className="primary_btn">Find out</button>
 			</div>
 		</form>
 	);

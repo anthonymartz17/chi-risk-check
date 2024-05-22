@@ -1,10 +1,12 @@
 .app {
-	display: grid;
-	grid-template-rows: 10% 1fr 10%;
+	/* display: grid; */
+	/* grid-template-rows: 10% 1fr 10%; */
 	/* background-color: blue; */
-	height: 100vh;
+	/* height: 100vh; */
 }
 
 main {
 	margin: 1em 2em;
+	min-height: 85vh;
+
 }

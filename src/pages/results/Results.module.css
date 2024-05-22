@@ -1,28 +1,31 @@
 .results {
 	display: grid;
 	grid-template-columns: 20% 1fr;
+	grid-template-rows: 1fr;
 	gap: 1em;
-	height: 100%;
-	overflow-y: auto;
+	height: 80vh;
+	/* overflow-y: auto; */
 }
 
 .sidebar {
-	background-color: lightgray;
+	background-color: #151515;
 	padding: 1em;
-	height: 95%;
+	/* height: 95%; */
 	border-radius: 5px;
+	box-shadow: rgba(243, 243, 244, 0.25) 0px 13px 27px -5px, rgba(251, 250, 250, 0.3) 0px 8px 16px -8px;	/* border: 1px solid rgba(255, 255, 255, 0.341); */
 }
 
 .results_display {
-	
 	display: grid;
-	
+	gap: 1em;
 	grid-template-columns: 1fr 1fr;
-	grid-template-rows: auto;
-	gap: 2em;
 
+	/* grid-template-rows: auto;
+	gap: 2em;  */
+	padding: 1em;
 }
 .results_likelyhood {
+	background: black;
 }
 .likelyhood_crimes {
 	display: flex;
@@ -35,7 +38,11 @@
 	width: 50%;
 }
 
-.result_piechart{
-width: 200px;
-height: 200px;
+.result_piechart {
+	width: 200px;
+	height: 200px;
+}
+
+.results_card {
+	border: 1px solid rgba(255, 255, 255, 0.234);
 }

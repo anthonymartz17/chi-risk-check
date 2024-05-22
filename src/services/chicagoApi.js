@@ -29,7 +29,7 @@ export async function fetchCrimeData({lat,lng,date}) {
 				$limit: 5000,
 			},
     });
-    return response
+    return response.data
 	} catch (error) {
 		throw error;
 	}

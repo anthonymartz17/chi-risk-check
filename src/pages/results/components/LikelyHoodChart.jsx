@@ -22,7 +22,7 @@ export default function LikelyHoodChart({ crimes }) {
 		generatePrimaryType(crimes);
 	}, []);
 	return (
-		<div>
+		<div className={classes.results_likelyhood}>
 			<h2>87%</h2>
 			<p>Most likely crimes</p>
 			<ul>

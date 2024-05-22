@@ -36,13 +36,33 @@ export default function MostDangerousHours({ crimes }) {
 	}
 	const chartOptions = {
 		data: hours,
+		title: {
+			text: "Most dangerous hours",
+			color: "white",
+		},
 		series: [
 			{
 				type: "line",
 				xKey: "hours",
 				yKey: "count",
+				stroke: "#ff6500",
+				marker: {
+					shape: "circle",
+					size: 8,
+					fill: "#ff6500",
+					stroke: "#ffffff",
+					strokeWidth: 2,
+				},
+				label: {
+					fontSize: 12,
+					fontWeight: "lighter",
+					color: "#d3d3d3", // Light color for y-axis labels
+				},
 			},
 		],
+		background: {
+			fill: "black",
+		},
 	};
 	useEffect(() => {
 		generateDangerousHours(crimes);
