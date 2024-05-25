@@ -16,15 +16,10 @@ export default function Form({ onGetCrimeData }) {
 	}
 
 	return (
-		<form onSubmit={handleSubmit}>
+		<form onSubmit={handleSubmit} className={classes.form}>
 			<div className={classes.form_inputs}>
 				<label htmlFor="date">Pick a Date</label>
-				<DatePicker
-					id="date"
-					className={classes.form_date_picker}
-					onChange={(e) => setDate(e)}
-					value={date}
-				/>
+				<DatePicker id="date" onChange={(e) => setDate(e)} value={date} />
 			</div>
 			<div className={classes.form_inputs}>
 				<label htmlFor="address">Enter Address</label>

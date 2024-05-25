@@ -3,9 +3,9 @@ import { AgChartsReact } from "ag-charts-react";
 import classes from "../Results.module.css";
 
 export default function ArrestsPieChart({ crimes }) {
-	console.log(crimes);
 	const [arrests, setArrests] = useState({
 		data: [],
+		height:500,
 		title: {
 			text: "Arrests Made vs Not Arrested",
 			color: "white",
@@ -16,7 +16,7 @@ export default function ArrestsPieChart({ crimes }) {
 		series: [
 			{
 				labels: {
-					color: "white", // Set callout label text color to white
+					color: "white",
 				},
 
 				fills: ["#121481", "#ff6500"],
@@ -56,7 +56,7 @@ export default function ArrestsPieChart({ crimes }) {
 
 	useEffect(() => {
 		generateArrestsData();
-	}, [crimes]);
+	}, []);
 
 	return <AgChartsReact options={arrests} className={classes.piechart} />;
 }

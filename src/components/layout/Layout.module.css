@@ -11,12 +11,14 @@
 	align-items: center;
 }
 .header_logo img {
-	max-width: 100px;
+	max-width: 125px;
 }
 .header_nav_container {
 	display: flex;
 	justify-content: end;
+
 	align-items: center;
+	font-family: "Inter", sans-serif;
 }
 .header_nav {
 	display: flex;

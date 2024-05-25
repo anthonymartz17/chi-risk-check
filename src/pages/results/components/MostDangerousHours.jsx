@@ -26,7 +26,7 @@ export default function MostDangerousHours({ crimes }) {
 			);
 			updatedHours[idx].count++;
 		});
-
+  console.log(updatedHours,'updated')
 		setHours(
 			updatedHours.map((ele) => ({
 				...ele,
@@ -35,10 +35,13 @@ export default function MostDangerousHours({ crimes }) {
 		);
 	}
 	const chartOptions = {
+		height: 500,
+		width:870,
 		data: hours,
 		title: {
 			text: "Most dangerous hours",
 			color: "white",
+			margin:"1em"
 		},
 		series: [
 			{

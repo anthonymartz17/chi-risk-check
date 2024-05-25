@@ -23,6 +23,8 @@ export default function MostDangerousBlocks({ crimes }) {
 		generateMostDangerousBlocks(crimes);
 	}, []);
 	const barChartOptions = {
+		height: 500,
+		width: 870,
 		data: dangerousBlocks,
 		title: {
 			text: "Most dangerous blocks",

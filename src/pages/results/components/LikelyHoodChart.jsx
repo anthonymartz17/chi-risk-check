@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
 import classes from "../Results.module.css";
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
+import { Link } from "react-router-dom";
+
 export default function LikelyHoodChart({ crimes }) {
 	const [primaryTypes, setPrimaryTypes] = useState([]);
 
@@ -23,16 +27,35 @@ export default function LikelyHoodChart({ crimes }) {
 	}, []);
 	return (
 		<div className={classes.results_likelyhood}>
-			<h2>87%</h2>
-			<p>Most likely crimes</p>
-			<ul>
-				{primaryTypes.map((ele, idx) => (
-					<li className={classes.likelyhood_crimes} key={idx}>
-						<p>{ele.type}</p>
-						<p>{ele.percent}%</p>
-					</li>
-				))}
-			</ul>
+			<div className={classes.results_progress_bar_container}>
+				<CircularProgressbar
+					className={classes.results_progress_bar}
+					value={30}
+					text={`${30}%`}
+					styles={buildStyles({
+						pathColor: "#ff6500",
+						textColor: "white",
+						trailColor: "#d6d6d6",
+					})}
+				/>
+			</div>
+			<div className={classes.results_likely_crimes}>
+				<h3 className="title_h3">Most likely crimes</h3>
+				<ul>
+					{primaryTypes.map((ele, idx) => (
+						<li className={classes.likelyhood_crimes} key={idx}>
+							<p>{ele.type}</p>
+							<p>{ele.percent}%</p>
+						</li>
+					))}
+				</ul>
+				<Link
+					to="analytics"
+					className={`${classes.results_analytics_btn} primary_btn `}
+				>
+					See Analytics
+				</Link>
+			</div>
 		</div>
 	);
 }
