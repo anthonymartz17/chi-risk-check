@@ -14,10 +14,14 @@ import { crimes } from "./assets/mockup_db";
 
 function App() {
 	const [crimeData, setCrimeData] = useState(crimes);
-	async function getCrimeData(payload) {
+	async function getCrimeData({ address, date }) {
 		try {
-			const { lat, lng } = await geocodeAddress(payload.address);
-			const data = await fetchCrimeData({ date: payload.date, lat, lng });
+			const { lat, lng } = await geocodeAddress(address);
+			const params = {
+				$where: `within_circle(location, ${lat}, ${lng}, ${radius}) AND date BETWEEN '${date}T00:00:00' AND '${date}T23:59:59'`,
+				$limit: 5000,
+			};
+			const data = await fetchCrimeData(params);
 			setCrimeData(data);
 		} catch (error) {
 			console.log(error, "error apjsx");
@@ -30,7 +34,10 @@ function App() {
 					<Header />
 					<main>
 						<Routes>
-							<Route path="/" element={<Home />} />
+							<Route
+								path="/"
+								element={<Home onGetCrimeData={getCrimeData} />}
+							/>
 							<Route path="/results" element={<Results />}>
 								<Route path="" element={<MainResults crimes={crimeData} />} />
 								<Route

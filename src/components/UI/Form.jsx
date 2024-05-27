@@ -1,25 +1,32 @@
 import React, { useState } from "react";
 import classes from "../UI/UI.module.css";
-
-import DatePicker from "react-date-picker";
-import "react-date-picker/dist/DatePicker.css";
-import "react-calendar/dist/Calendar.css";
+import { useNavigate } from "react-router-dom";
+import { Datepicker } from "flowbite-react";
 
 export default function Form({ onGetCrimeData }) {
+	const navigate = useNavigate();
 	const [date, setDate] = useState("");
 	const [address, setAddress] = useState("");
 
 	function handleSubmit(e) {
 		e.preventDefault();
 		const formatted = new Date(date).toISOString().split("T")[0];
-		// onGetCrimeData({ address, date: formatted });
+		onGetCrimeData({ address, date: formatted });
+		navigate("/results");
 	}
 
 	return (
 		<form onSubmit={handleSubmit} className={classes.form}>
 			<div className={classes.form_inputs}>
 				<label htmlFor="date">Pick a Date</label>
-				<DatePicker id="date" onChange={(e) => setDate(e)} value={date} />
+
+				<Datepicker
+					onChange={(date) => setDate(date)}
+					className="w-full  dark:bg-gray-800"
+					style={{ background: "grey", color: "white" }}
+					// minDate={new Date(2023, 0, 1)}
+					// maxDate={new Date(2023, 3, 30)}
+				/>
 			</div>
 			<div className={classes.form_inputs}>
 				<label htmlFor="address">Enter Address</label>

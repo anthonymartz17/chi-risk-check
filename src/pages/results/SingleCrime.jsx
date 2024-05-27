@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import crimeScene from "../../assets/images/crimescene.webp";
 import classes from "./Results.module.css";
+import { fetchCrimeData } from "../../services/chicagoApi";
+import CrimeTendency from "../results/components/CrimeTendency";
 import { useParams } from "react-router-dom";
 export default function SingleCrime({ crimes }) {
 	const { id } = useParams();
@@ -20,10 +22,39 @@ export default function SingleCrime({ crimes }) {
 		}).format(date);
 	}
 
-	function getCrime() {
-		const foundCrime = crimes.find((ele) => ele.id == id);
-		foundCrime.time = formatTime(foundCrime.date);
-		setCrime(foundCrime);
+	async function getCrime() {
+		try {
+			const foundCrime = crimes.find((ele) => ele.id == id);
+			foundCrime.time = formatTime(foundCrime.date);
+			const startDate = getDateThreeMonthsAgo();
+			const endDate = new Date().toISOString().split("T")[0];
+
+			const params = {
+				$where: `within_circle(location, ${foundCrime.latitude}, ${
+					foundCrime.longitude
+				}, ${500}) AND date BETWEEN '${startDate}T00:00:00' AND '${endDate}T23:59:59' AND primary_type='${
+					foundCrime.primary_type
+				}'`,
+				$limit: 5000,
+			};
+			// const data = await fetchCrimeData(params);
+			foundCrime.similar_crimes = [...data];
+			console.log(data, "k vino");
+			setCrime(foundCrime);
+		} catch (error) {
+			console.log(error, "error apjsx");
+		}
+	}
+
+	function getDateThreeMonthsAgo() {
+		const today = new Date();
+		const oneYearAgo = new Date(
+			today.getFullYear() - 1,
+			today.getMonth(),
+			today.getDate()
+		);
+
+		return oneYearAgo.toISOString().split("T")[0];
 	}
 
 	useEffect(() => {
@@ -61,6 +92,7 @@ export default function SingleCrime({ crimes }) {
 			</div>
 			<div className={classes.singlecrime_tendency}>
 				<div className={classes.singlecrime_tendency_item}>
+					<CrimeTendency crime={crime} />
 					<p className={classes.singlecrime_tendency_item_num}>23</p>
 					<p>Similar crimes last 3 months</p>
 				</div>

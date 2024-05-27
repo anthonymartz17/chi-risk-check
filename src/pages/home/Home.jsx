@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import classes from "./Home.module.css";
 import { fetchCrimeData } from "../../services/chicagoApi";
 import Form from "../../components/UI/Form.jsx";
-export default function Home() {
+export default function Home({ onGetCrimeData }) {
 	async function getCrimeData() {
 		try {
 			const data = await fetchCrimeData();
@@ -24,7 +24,7 @@ export default function Home() {
 				How likely were you to be a victim of a crime?
 			</h1>
 			{/* <div className="card"> */}
-				<Form />
+			<Form onGetCrimeData={onGetCrimeData} />
 			{/* </div> */}
 			{/* </div> */}
 		</div>

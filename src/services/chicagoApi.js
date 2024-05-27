@@ -21,15 +21,10 @@ export async function geocodeAddress(address) {
 	}
 }
 
-export async function fetchCrimeData({lat,lng,date}) {
+export async function fetchCrimeData(params) {
 	try {
-		const response = await axios.get(BASE_URL, {
-			params: {
-				$where: `within_circle(location, ${lat}, ${lng}, 1000) AND date BETWEEN '${date}T00:00:00' AND '${date}T23:59:59'`,
-				$limit: 5000,
-			},
-    });
-    return response.data
+		const response = await axios.get(BASE_URL, {params});
+		return response.data;
 	} catch (error) {
 		throw error;
 	}

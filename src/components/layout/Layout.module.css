@@ -2,7 +2,9 @@
 	/* background-color: grey; */
 	display: grid;
 	grid-template-columns: 20% 1fr;
-	padding-inline: 1em;
+	padding-inline:5%;
+	margin-bottom: 5em;
+
 }
 
 .header_logo {

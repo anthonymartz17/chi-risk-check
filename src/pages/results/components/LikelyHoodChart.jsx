@@ -17,7 +17,7 @@ export default function LikelyHoodChart({ crimes }) {
 		const crimeTypesFormatted = Object.entries(typeCount).map((ele) => ({
 			type: ele[0],
 			count: ele[1],
-			percent: (ele[1] * 100) / crimes.length,
+			percent: ((ele[1] * 100) / crimes.length).toFixed(2),
 		}));
 		setPrimaryTypes(crimeTypesFormatted.sort((a, b) => b.count - a.count));
 	}
@@ -42,12 +42,16 @@ export default function LikelyHoodChart({ crimes }) {
 			<div className={classes.results_likely_crimes}>
 				<h3 className="title_h3">Most likely crimes</h3>
 				<ul>
-					{primaryTypes.map((ele, idx) => (
-						<li className={classes.likelyhood_crimes} key={idx}>
-							<p>{ele.type}</p>
-							<p>{ele.percent}%</p>
-						</li>
-					))}
+					{primaryTypes.map((ele, idx) => {
+						if (idx <= 5) {
+							return (
+								<li className={classes.likelyhood_crimes} key={idx}>
+									<p>{ele.type}</p>
+									<p>{ele.percent}%</p>
+								</li>
+							);
+						}
+					})}
 				</ul>
 				<Link
 					to="analytics"
