@@ -22,30 +22,6 @@ export default function SingleCrime({ crimes }) {
 		}).format(date);
 	}
 
-	async function getCrime() {
-		try {
-			const foundCrime = crimes.find((ele) => ele.id == id);
-			foundCrime.time = formatTime(foundCrime.date);
-			const startDate = getDateThreeMonthsAgo();
-			const endDate = new Date().toISOString().split("T")[0];
-
-			const params = {
-				$where: `within_circle(location, ${foundCrime.latitude}, ${
-					foundCrime.longitude
-				}, ${500}) AND date BETWEEN '${startDate}T00:00:00' AND '${endDate}T23:59:59' AND primary_type='${
-					foundCrime.primary_type
-				}'`,
-				$limit: 5000,
-			};
-			// const data = await fetchCrimeData(params);
-			foundCrime.similar_crimes = [...data];
-			console.log(data, "k vino");
-			setCrime(foundCrime);
-		} catch (error) {
-			console.log(error, "error apjsx");
-		}
-	}
-
 	function getDateThreeMonthsAgo() {
 		const today = new Date();
 		const oneYearAgo = new Date(
@@ -58,8 +34,40 @@ export default function SingleCrime({ crimes }) {
 	}
 
 	useEffect(() => {
-		getCrime();
-	}, []);
+		async function getCrime() {
+			try {
+				const foundCrime = crimes.find((ele) => ele.id == id);
+				foundCrime.time = formatTime(foundCrime.date);
+				const startDate = getDateThreeMonthsAgo();
+				const endDate = new Date().toISOString().split("T")[0];
+
+				const params = {
+					$where: `within_circle(location, ${foundCrime.latitude}, ${
+						foundCrime.longitude
+					}, ${500}) AND date BETWEEN '${startDate}T00:00:00' AND '${endDate}T23:59:59' AND primary_type='${
+						foundCrime.primary_type
+					}'`,
+					$limit: 5000,
+				};
+				const data = await fetchCrimeData(params);
+				foundCrime.similar_crimes = data;
+				foundCrime.arrest_made_percent = (
+					(data.filter((ele) => ele.arrest).length * 100) /
+					data.length
+				).toFixed(2);
+				console.log(crimes);
+				console.log(foundCrime, "in function");
+
+				setCrime(foundCrime);
+			} catch (error) {
+				console.log(error, "error apjsx");
+			}
+		}
+		if (crimes.length > 0) {
+			getCrime();
+			console.log(crime, "crime effect");
+		}
+	}, [id]);
 
 	return (
 		<div className={classes.singlecrime}>
@@ -69,6 +77,10 @@ export default function SingleCrime({ crimes }) {
 					<p className={classes.singlecrime_description_item}>
 						<span>Case:</span>
 						{crime.case_number}
+					</p>
+					<p className={classes.singlecrime_description_item}>
+						<span>Description:</span>
+						{crime.description}
 					</p>
 					<p className={classes.singlecrime_description_item}>
 						<span>Location:</span>
@@ -91,13 +103,19 @@ export default function SingleCrime({ crimes }) {
 				</div>
 			</div>
 			<div className={classes.singlecrime_tendency}>
+				{crime.similar_crimes && (
+					<div className={classes.singlecrime_tendency_item}>
+						<CrimeTendency similarCrimes={crime.similar_crimes} />
+						<p className={classes.singlecrime_tendency_item_num}>
+							{crime.similar_crimes.length}
+						</p>
+						<p>Similar crimes over the past year</p>
+					</div>
+				)}
 				<div className={classes.singlecrime_tendency_item}>
-					<CrimeTendency crime={crime} />
-					<p className={classes.singlecrime_tendency_item_num}>23</p>
-					<p>Similar crimes last 3 months</p>
-				</div>
-				<div className={classes.singlecrime_tendency_item}>
-					<p className={classes.singlecrime_tendency_item_num}>1 / 4</p>
+					<p className={classes.singlecrime_tendency_item_num}>
+						{crime.arrest_made_percent + "%"}
+					</p>
 					<p>Resulted in arrests</p>
 				</div>
 			</div>
