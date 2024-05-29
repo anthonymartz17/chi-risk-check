@@ -7,7 +7,7 @@
 
 main {
 	margin: 1em 2em;
-	min-height: 85vh;
+	/* min-height: 75vh; */
 	display: flex;
 	justify-content: center;
 

@@ -14,9 +14,9 @@ export default function Analytics({ crimes }) {
 				</div>
 			</div>
 			<div>
-				<div className={classes.results_card}>
+				{/* <div className={classes.results_card}>
 					<MostDangerousHours crimes={crimes} />
-				</div>
+				</div> */}
 				<div className={classes.results_card}>
 					<MostDangerousBlocks crimes={crimes} />
 				</div>

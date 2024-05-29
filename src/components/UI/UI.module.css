@@ -1,6 +1,6 @@
 .form {
 	width: 60%;
-	box-shadow: rgba(249, 247, 247, 0.02) 0px 1px 3px 0px, rgba(244, 246, 248, 0.15) 0px 0px 0px 1px;
+	/* box-shadow: rgba(249, 247, 247, 0.02) 0px 1px 3px 0px, rgba(244, 246, 248, 0.15) 0px 0px 0px 1px; */
 	padding: 10px;
 }
 
@@ -8,20 +8,18 @@
 	border-radius: 5px;
 	color: black;
 }
-.react-calendar {
-	/* background: blue !important; */
-	/* color: white; */
-}
-
-.form_input_address {
-	border: 0.5px solid grey;
-	padding: 5px;
-}
 
 .form_inputs {
 	display: grid;
-	gap: 1em;
+	gap: .3em;
 	margin-bottom: 1em;
+}
+.form_input_field {
+	background-color: var(--light-dark);
+	border-radius: 5px;
+	padding: 0.5rem 1rem;
+	border: none;
+	/* border: 1px solid rgba(255, 255, 255, 0.401); */
 }
 
 .form_submit_btn {

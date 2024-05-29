@@ -37,6 +37,7 @@ export default function SingleCrime({ crimes }) {
 		async function getCrime() {
 			try {
 				const foundCrime = crimes.find((ele) => ele.id == id);
+				console.log(crimes, "hay algo");
 				foundCrime.time = formatTime(foundCrime.date);
 				const startDate = getDateThreeMonthsAgo();
 				const endDate = new Date().toISOString().split("T")[0];
@@ -99,13 +100,13 @@ export default function SingleCrime({ crimes }) {
 						{crime.arrest ? "Suspected arrested" : "Suspect not arrested"}
 					</p>
 
-					<div style={containerStyle}></div>
+					{/* <div style={containerStyle}></div> */}
 				</div>
 			</div>
 			<div className={classes.singlecrime_tendency}>
 				{crime.similar_crimes && (
 					<div className={classes.singlecrime_tendency_item}>
-						<CrimeTendency similarCrimes={crime.similar_crimes} />
+						<CrimeTendency crime={crime} />
 						<p className={classes.singlecrime_tendency_item_num}>
 							{crime.similar_crimes.length}
 						</p>

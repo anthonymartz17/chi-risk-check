@@ -75,7 +75,7 @@
 }
 
 .results_analytics_btn {
-	width: 80%;
+	/* width: 80%; */
 	display: block;
 }
 .results_analytics {
@@ -171,4 +171,10 @@ tbody {
 
 .singlecrime_description {
 	min-height: 50vh;
+}
+
+@media (width < 1100px) {
+	.main_results {
+		grid-template-columns: 1fr;
+	}
 }

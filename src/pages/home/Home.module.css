@@ -3,11 +3,11 @@
 	place-items: center;
 	height: 80vh;
 	position: relative; */
-
+	/* position: relative; */
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
 	align-items: center;
+	padding-top: 5em;
 	width: 80%;
 }
 .home_wrapper {
@@ -23,4 +23,27 @@
 	font-size: 2.5rem;
 	font-weight: 800;
 	letter-spacing: 2px;
+}
+
+.home_skyline {
+	position: absolute;
+	width: 1200px;
+	bottom: 0px;
+	/* background-color: blue; */
+}
+
+.home_skyline .skyline {
+
+	opacity: 0.2;
+	max-width: 100%;
+	position: relative;
+	object-fit: contain;
+}
+
+.helicopter{
+	width: 50px;
+	position: absolute;
+	top: 10px;
+	right: 350px;
+	opacity: .4;
 }

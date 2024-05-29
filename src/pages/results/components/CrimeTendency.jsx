@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import tendency from "../../../assets/tendency";
 import { AgChartsReact } from "ag-charts-react";
 import { useEffect } from "react";
-export default function MostDangerousHours({similarCrimes}) {
+export default function MostDangerousHours({ crime }) {
 	const [chartOptions, setChartOptions] = useState({
 		height: 400,
 		width: 870,
 		data: [],
 		title: {
-			text: "Tendency of this type of crime",
+			text: `Tendency of ${crime.primary_type} over the past year`,
 			color: "white",
 			margin: "1em",
 		},
@@ -39,9 +39,8 @@ export default function MostDangerousHours({similarCrimes}) {
 		},
 	});
 
-  function generateTendency() {
-    console.log(similarCrimes,'khay')
-		const trend = similarCrimes.reduce((acc, curr) => {
+	function generateTendency() {
+		const trend = crime.similar_crimes.reduce((acc, curr) => {
 			const month = getMonthName(new Date(curr.date).getMonth());
 			if (!acc[month]) {
 				acc[month] = { month, count: 0, date: curr.date };

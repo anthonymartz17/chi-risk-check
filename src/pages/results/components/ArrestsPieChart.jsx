@@ -5,7 +5,7 @@ import classes from "../Results.module.css";
 export default function ArrestsPieChart({ crimes }) {
 	const [arrests, setArrests] = useState({
 		data: [],
-		height:500,
+		height: 500,
 		title: {
 			text: "Arrests Made vs Not Arrested",
 			color: "white",
@@ -56,7 +56,7 @@ export default function ArrestsPieChart({ crimes }) {
 
 	useEffect(() => {
 		generateArrestsData();
-	}, []);
+	}, [crimes]);
 
 	return <AgChartsReact options={arrests} className={classes.piechart} />;
 }

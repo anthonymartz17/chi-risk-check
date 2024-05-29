@@ -4,8 +4,9 @@ import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { Link } from "react-router-dom";
 
-export default function LikelyHoodChart({ crimes }) {
+export default function LikelyHoodChart({ crimes, population }) {
 	const [primaryTypes, setPrimaryTypes] = useState([]);
+	const [likelyhood, setLikelyhood] = useState();
 
 	function generatePrimaryType(crimes) {
 		const typeCount = {};
@@ -22,9 +23,18 @@ export default function LikelyHoodChart({ crimes }) {
 		setPrimaryTypes(crimeTypesFormatted.sort((a, b) => b.count - a.count));
 	}
 
+	function calcLikelyhood(crimeCount, population) {
+		const SAMPLE_SIZE = 1000;
+		const ratio = (crimeCount / population) * SAMPLE_SIZE;
+		console.log(crimeCount, population, "crime");
+		console.log({ ratio, percent: (ratio * 100) / 1000 }, "ration");
+		setLikelyhood({ ratio, percent: (ratio * 100) / 1000 });
+	}
+
 	useEffect(() => {
 		generatePrimaryType(crimes);
-	}, []);
+		calcLikelyhood(crimes.length, population);
+	}, [crimes, population]);
 	return (
 		<div className={classes.results_likelyhood}>
 			<div className={classes.results_progress_bar_container}>
@@ -43,7 +53,7 @@ export default function LikelyHoodChart({ crimes }) {
 				<h3 className="title_h3">Most likely crimes</h3>
 				<ul>
 					{primaryTypes.map((ele, idx) => {
-						if (idx <= 5) {
+						if (idx <= 4) {
 							return (
 								<li className={classes.likelyhood_crimes} key={idx}>
 									<p>{ele.type}</p>
