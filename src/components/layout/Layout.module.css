@@ -1,8 +1,9 @@
 .header {
-	background-color: grey;
+	/* background-color: grey; */
 	display: grid;
 	grid-template-columns: 20% 1fr;
-	padding-inline: 1em;
+	padding-inline: 5%;
+	margin-bottom: 5em;
 }
 
 .header_logo {
@@ -11,12 +12,14 @@
 	align-items: center;
 }
 .header_logo img {
-	max-width: 100px;
+	max-width: 125px;
 }
 .header_nav_container {
-	display: flex;
+	display: none;
 	justify-content: end;
+
 	align-items: center;
+	font-family: "Inter", sans-serif;
 }
 .header_nav {
 	display: flex;
@@ -27,4 +30,16 @@
 .header_nav_item_link {
 	text-decoration: none;
 	padding: 0.5em 1em;
+}
+
+@media (width >= 640px) and (width < 768px) {
+}
+@media (width >= 768px) {
+}
+@media (width >= 1024px) {
+	.header_nav_container {
+		display: flex;
+	}
+}
+@media (width >= 1280px) {
 }

@@ -1,21 +1,74 @@
-.form_date_picker {
-	border-radius: 5px;
+.form {
+	padding: 10px;
+	width: 100%;
 }
 
-.form_input_address {
-	border: 0.5px solid grey;
-	padding: 5px;
+.form_date_picker {
+	border-radius: 5px;
+	color: black;
 }
 
 .form_inputs {
 	display: grid;
-	gap: 1em;
+	gap: 0.3em;
 	margin-bottom: 1em;
 }
+.form_input_field {
+	background-color: var(--light-dark);
+	border-radius: 5px;
+	padding: 0.5rem 1rem;
+	border: none;
 
-.form_submit_btn{
-  background-color: grey;
-  padding: .5em 2em;
-  border-radius: 5px;
-  cursor: pointer;
+}
+.address {
+	display: grid;
+
+	gap: 5px;
+}
+.address input {
+	/* max-width: 30%; */
+}
+
+.form_submit_btn {
+	background-color: grey;
+	padding: 0.5em 2em;
+	border-radius: 5px;
+	cursor: pointer;
+}
+.form_btn {
+}
+
+.alert{
+	position: absolute;
+	top: 20px;
+	right: 50%;
+	transform: translateX(50%);
+	width: 100%;
+	background-color: var(--danger);
+	border: 1px solid rgba(255, 255, 255, 0.751);
+	padding: .8rem;
+	text-align: center;
+	text-wrap: wrap;
+	width: 50%;
+	max-width: 800px;
+	border-radius: 5px;
+}
+
+@media (width < 1200px) {
+	.form {
+		/* width: 80%; */
+	}
+}
+
+
+@media (width >= 640px) and (width < 768px) {
+}
+@media (width >= 768px) and (width < 1024px) {
+}
+@media (width >= 1024px){
+	.address{
+		display: flex;
+	}
+}
+@media (width >= 1280px) {
 }

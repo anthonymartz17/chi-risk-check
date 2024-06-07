@@ -1,28 +1,66 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AgChartsReact } from "ag-charts-react";
 import classes from "../Results.module.css";
-export default function ArrestsPieChart() {
-	const donutChartOptions = {
-		data: [
-			{ category: "Apples", value: 40 },
-			{ category: "Oranges", value: 30 },
-		],
+
+export default function ArrestsPieChart({ crimes }) {
+	const [arrests, setArrests] = useState({
+		data: [],
+		height: 500,
+		title: {
+			text: "Arrests Made vs Not Arrested",
+			color: "white",
+		},
+		background: {
+			fill: "black",
+		},
 		series: [
 			{
+				fills: ["#121481", "#ff6500"],
 				type: "pie",
-				angleKey: "value",
-				labelKey: "category",
-				// innerRadiusOffset: -50, // This creates the donut effect by specifying the inner radius
-				fills: ["#f8a1d1", "#f2b809"],
-				// strokes: ["#d078b5", "#b08b05", "#5ba664", "#7094b2"],
+				angleKey: "count",
+
+				calloutLabelKey: "category",
+				calloutLabel: {
+					color: "white",
+				},
+				sectorLabelKey: "count",
+
+				sectorLabel: {
+					color: "white",
+					fontWeight: "bold",
+					renderer: ({ datum }) => `${datum.percent.toFixed(2)}%`, // Format the percent
+				},
+				tooltip: {
+					class:"tooltip"
+				},
 			},
 		],
-		legend: {
-			enabled: false,
-		},
-	};
+	});
 
-	return (
-		<AgChartsReact options={donutChartOptions} className={classes.piechart} />
-	);
+	function generateArrestsData() {
+		const arrestsData = [
+			{ category: "Arrests Made", count: 0, percent: 0 },
+			{ category: "Not Arrested", count: 0, percent: 0 },
+		];
+
+		crimes.forEach((crime) => {
+			if (crime.arrest) {
+				arrestsData[0].count++;
+			} else {
+				arrestsData[1].count++;
+			}
+		});
+
+		const totalCrimes = crimes.length;
+		arrestsData[0].percent = (arrestsData[0].count * 100) / totalCrimes;
+		arrestsData[1].percent = (arrestsData[1].count * 100) / totalCrimes;
+
+		setArrests((prevArrests) => ({ ...prevArrests, data: arrestsData }));
+	}
+
+	useEffect(() => {
+		generateArrestsData();
+	}, [crimes]);
+
+	return <AgChartsReact options={arrests} className={classes.piechart} />;
 }

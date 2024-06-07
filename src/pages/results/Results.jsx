@@ -1,33 +1,30 @@
-import React, { useState } from "react";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import classes from "./Results.module.css";
-import SideBar from "./components/SideBar";
-import MostDangerousHours from "./components/MostDangerousHours";
-import ArrestsPieChart from "./components/ArrestsPieChart";
-import LikelyHoodChart from "./components/LikelyHoodChart";
-import MostDangerousBlocks from "./components/MostDangerousBlocks";
-export default function Results({ onGetCrimeData, crimes }) {
-	console.log(crimes);
+
+export default function Results() {
+	const { pathname } = useLocation();
+
 	return (
 		<div className={classes.results}>
-			<div className={classes.sidebar}>
-				<SideBar onGetCrimeData={onGetCrimeData} />
+			<div className={classes.results_header_container}>
+				<h1 className="title_h1">Results</h1>
+				{pathname != "/results" && (
+					<Link to="/results">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							height="24px"
+							viewBox="0 -960 960 960"
+							width="24px"
+							fill="#e8eaed"
+						>
+							<path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z" />
+						</svg>{" "}
+						Back
+					</Link>
+				)}
 			</div>
-			<div className={classes.results_display}>
-				<div className={`${classes.results_likelyhood} card`}>
-					<LikelyHoodChart crimes={crimes} />
-				</div>
-				<div className="card">
-					<MostDangerousHours crimes={crimes} />
-				</div>
-				<div className="card">
-					<MostDangerousBlocks crimes={crimes} />
-				</div>
-				<div className="card">
-					<h2>Percentage of Arrests Made</h2>
 
-					{/* <ArrestsPieChart className={classes.result_piechart } /> */}
-				</div>
-			</div>
+			<Outlet />
 		</div>
 	);
 }

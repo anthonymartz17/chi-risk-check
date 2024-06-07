@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
 import classes from "./Home.module.css";
-
 import { fetchCrimeData } from "../../services/chicagoApi";
+import skyline from "../../assets/images/chicago_skyline.png";
+import helicopter from "../../assets/images/helicopter.gif";
 import Form from "../../components/UI/Form.jsx";
-export default function Home() {
+
+export default function Home({ onGetCrimeData, isLoading }) {
 	async function getCrimeData() {
 		try {
 			const data = await fetchCrimeData();
@@ -20,14 +22,13 @@ export default function Home() {
 
 	return (
 		<div className={classes.home}>
-			<div className={classes.home_wrapper}>
-				<h1 className={classes.home_hero_text}>
-					How likely were you to be a victim of a crime in Chicago during 2023?
-				</h1>
-				<div className="card">
-					<Form />
-				</div>
+			<h1 className={classes.home_hero_text}>How risky is it to visit?</h1>
+			<Form onGetCrimeData={onGetCrimeData} isLoading={isLoading} />
+			<div className={classes.home_skyline}>
+				<img className={classes.skyline} src={skyline} alt="" />
+				<img className={classes.helicopter} src={helicopter} alt="" />
 			</div>
+
 		</div>
 	);
 }
