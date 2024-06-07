@@ -6,38 +6,32 @@ import MainResults from "./pages/results/MainResults";
 import SingleCrime from "./pages/results/SingleCrime";
 import Analytics from "./pages/results/Analytics";
 import Header from "./components/layout/Header";
+import Alert from "./components/UI/Alert";
 import Footer from "./components/layout/Footer";
 import "./App.css";
-import { useState } from "react";
-import {
-	geocodeAddress,
-	fetchCrimeData,
-	getPopulation,
-	fetchFIPSCode,
-} from "./services/chicagoApi";
+import { useEffect, useState } from "react";
+import { geocodeAddressIO } from "./services/chicagoApi";
 import { crimes } from "./assets/mockup_db";
-
 function App() {
-	const [crimeData, setCrimeData] = useState(crimes);
-	const [population, setPopulation] = useState(null);
-	async function getCrimeData({ address, date, radius }, navigate) {
+	const [crimeData, setCrimeData] = useState({});
+
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState(null);
+
+	async function getCrimeData(payload, navigate) {
 		try {
-			const { lat, lng } = await geocodeAddress(address);
-			const { County, State } = await fetchFIPSCode(lat, lng);
-			const [population] = await getPopulation(County.FIPS, State.FIPS);
-			console.log(population, "que vino");
-			const params = {
-				$where: `within_circle(location, ${lat}, ${lng}, ${radius}) AND date BETWEEN '${date}T00:00:00' AND '${date}T23:59:59'`,
-				$limit: 5000,
-			};
-			const data = await fetchCrimeData(params);
-			setPopulation(Number(population));
-			// setCrimeData(data);
+			setIsLoading(true);
+
+			const crimeData  = await geocodeAddressIO(payload);
+
+			setCrimeData(crimeData);
 			navigate("/results");
+			setIsLoading(false);
 		} catch (error) {
-			console.log(error, "error apjsx");
+			setError(error);
 		}
 	}
+
 	return (
 		<>
 			<Router>
@@ -47,17 +41,24 @@ function App() {
 						<Routes>
 							<Route
 								path="/"
-								element={<Home onGetCrimeData={getCrimeData} />}
+								element={
+									<Home onGetCrimeData={getCrimeData} isLoading={isLoading} />
+								}
 							/>
 							<Route path="/results" element={<Results />}>
-								<Route path="" element={<MainResults crimes={crimeData} population={ 55009} />} />
+								<Route
+									path=""
+									element={
+										<MainResults crimeData={crimeData} isLoading={isLoading} />
+									}
+								/>
 								<Route
 									path="analytics"
-									element={<Analytics crimes={crimeData} />}
+									element={<Analytics crimes={crimeData.crimeData} />}
 								/>
 								<Route
 									path=":id"
-									element={<SingleCrime crimes={crimeData} />}
+									element={<SingleCrime crimes={crimeData.crimeData} />}
 								/>
 							</Route>
 							<Route path="/about" element={<About />} />
@@ -67,6 +68,7 @@ function App() {
 					{/* <Footer /> */}
 				</div>
 			</Router>
+			{error && <Alert />}
 		</>
 	);
 }

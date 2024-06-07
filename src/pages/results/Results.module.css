@@ -1,5 +1,7 @@
 .results {
 	width: 80%;
+	/* height: 100vh; */
+	overflow-y: auto;
 }
 
 .results_header_container {
@@ -173,8 +175,29 @@ tbody {
 	min-height: 50vh;
 }
 
+.form_inputs {
+	display: grid;
+	gap: 0.3em;
+	margin-bottom: 1em;
+}
+.form_input_field {
+	background-color: var(--light-dark);
+	border-radius: 5px;
+	padding: 0.5rem 1rem;
+	border: none;
+}
+
 @media (width < 1100px) {
 	.main_results {
 		grid-template-columns: 1fr;
 	}
+}
+
+@media (width >= 640px) and (width < 768px) {
+}
+@media (width >= 768px) and (width < 1024px) {
+}
+@media (width >= 1024px) and (width < 1280px) {
+}
+@media (width >= 1280px) {
 }

@@ -1,7 +1,6 @@
 .form {
-	width: 60%;
-	/* box-shadow: rgba(249, 247, 247, 0.02) 0px 1px 3px 0px, rgba(244, 246, 248, 0.15) 0px 0px 0px 1px; */
 	padding: 10px;
+	width: 100%;
 }
 
 .form_date_picker {
@@ -11,7 +10,7 @@
 
 .form_inputs {
 	display: grid;
-	gap: .3em;
+	gap: 0.3em;
 	margin-bottom: 1em;
 }
 .form_input_field {
@@ -19,7 +18,15 @@
 	border-radius: 5px;
 	padding: 0.5rem 1rem;
 	border: none;
-	/* border: 1px solid rgba(255, 255, 255, 0.401); */
+
+}
+.address {
+	display: grid;
+
+	gap: 5px;
+}
+.address input {
+	/* max-width: 30%; */
 }
 
 .form_submit_btn {
@@ -27,4 +34,41 @@
 	padding: 0.5em 2em;
 	border-radius: 5px;
 	cursor: pointer;
+}
+.form_btn {
+}
+
+.alert{
+	position: absolute;
+	top: 20px;
+	right: 50%;
+	transform: translateX(50%);
+	width: 100%;
+	background-color: var(--danger);
+	border: 1px solid rgba(255, 255, 255, 0.751);
+	padding: .8rem;
+	text-align: center;
+	text-wrap: wrap;
+	width: 50%;
+	max-width: 800px;
+	border-radius: 5px;
+}
+
+@media (width < 1200px) {
+	.form {
+		/* width: 80%; */
+	}
+}
+
+
+@media (width >= 640px) and (width < 768px) {
+}
+@media (width >= 768px) and (width < 1024px) {
+}
+@media (width >= 1024px){
+	.address{
+		display: flex;
+	}
+}
+@media (width >= 1280px) {
 }

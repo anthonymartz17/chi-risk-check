@@ -10,7 +10,7 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	width: 50%;
+	width: 60%;
 	height: fit-content;
 	gap: 1em;
 }
@@ -20,4 +20,16 @@
 	max-width: 400px;
 }
 
+.about_description{
+	flex:2;
+}
 
+
+@media (width >= 640px) and (width < 768px) {
+}
+@media (width >= 768px) and (width < 1024px) {
+}
+@media (width >= 1024px) and (width < 1280px) {
+}
+@media (width >= 1280px) {
+}

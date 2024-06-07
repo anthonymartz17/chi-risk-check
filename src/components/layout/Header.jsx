@@ -5,7 +5,7 @@ import chiRiskCheckLogo from "../../assets/images/chi-risk-check.svg";
 
 const links = [
 	{ path: "/", name: "Home", isActive: true },
-	{ path: "/results", name: "Advanced Search", isActive: false },
+	// { path: "/results", name: "Advanced Search", isActive: false },
 	{ path: "/about", name: "About", isActive: false },
 ];
 

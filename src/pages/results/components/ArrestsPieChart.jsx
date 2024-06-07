@@ -15,19 +15,23 @@ export default function ArrestsPieChart({ crimes }) {
 		},
 		series: [
 			{
-				labels: {
-					color: "white",
-				},
-
 				fills: ["#121481", "#ff6500"],
 				type: "pie",
-				angleKey: "percent",
+				angleKey: "count",
+
 				calloutLabelKey: "category",
+				calloutLabel: {
+					color: "white",
+				},
 				sectorLabelKey: "count",
+
 				sectorLabel: {
 					color: "white",
 					fontWeight: "bold",
-					formatter: ({ value }) => `${value}`,
+					renderer: ({ datum }) => `${datum.percent.toFixed(2)}%`, // Format the percent
+				},
+				tooltip: {
+					class:"tooltip"
 				},
 			},
 		],

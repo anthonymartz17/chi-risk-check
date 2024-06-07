@@ -15,10 +15,11 @@ export default function About() {
 					<h3 className="title_h2 text-gradient-primary">Front-end Dev</h3>
 
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto
-						sunt a corrupti exercitationem illo nobis enim assumenda pariatur
-						suscipit commodi itaque excepturi ipsam sapiente, animi quod, iste
-						veritatis omnis accusantium.
+						I'm a passionate coder, dedicated father of two amazing girls, and
+						an avid adventure seeker. I thrive on problem-solving and embracing
+						new challenges. When I'm not immersed in lines of code, I'm out
+						exploring the world, seeking new thrills and experiences to share
+						with my loved ones.
 					</p>
 				</div>
 			</div>

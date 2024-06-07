@@ -2,56 +2,83 @@ import axios from "axios";
 const BASE_URL = import.meta.env.VITE_SOCRATA_BASE;
 const GOOGLE_API_KEY = import.meta.env.VITE_GOOGLE_API_KEY;
 
-export async function geocodeAddress(address) {
+export async function geocodeAddressIO({ address, radius }) {
+	const startDate = getDateOneYearAgo();
+	const endDate = new Date().toISOString().split("T")[0];
 	try {
-		const response = await axios.get(import.meta.env.VITE_GOOGLE_GEOCODE, {
-			params: {
-				address,
-				key: GOOGLE_API_KEY,
-			},
-		});
-		if (response.data.status !== "OK") {
-			throw new Error("Address not found");
-		}
-		console.log(response, "google api");
-		const { lat, lng } = response.data.results[0].geometry.location;
-		return { lat, lng };
+		const apiKey = import.meta.env.VITE_GEOCODIO_API_KEY;
+		const apiUrl = `https://api.geocod.io/v1.6/geocode?q=${encodeURIComponent(
+			address
+		)}&fields=census&api_key=${apiKey}`;
+
+		const response = await axios.get(apiUrl);
+
+		const { lat, lng } = response.data.results[0].location;
+		const { state_fips, county_fips, tract_code, block_group } =
+			response.data.results[0].fields.census[2023];
+
+		const population = await getPopulationByBlockGroup(
+			block_group,
+			tract_code,
+			county_fips.slice(2),
+			state_fips
+		);
+
+		const params = {
+			$where: `within_circle(location, ${lat}, ${lng}, ${100}) AND date BETWEEN '${startDate}T00:00:00' AND '${endDate}T23:59:59'`,
+			$limit: 5000,
+		};
+		const data = await fetchCrimeData(params);
+
+		return {
+			crimeData: data,
+			population: Number(population),
+			centerCoor: [lat, lng],
+		};
 	} catch (error) {
+		console.error("Error performing reverse geocoding:", error);
 		throw error;
 	}
 }
 
-export async function fetchFIPSCode(lat, lng) {
-	try {
-		const response = await axios.get(import.meta.env.VITE_FCC_FIPS_CODE, {
-			params: {
-				latitude: lat,
-				longitude: lng,
-				format: "json",
-			},
-		});
-		return response.data;
-	} catch (error) {
-		throw error;
-	}
-}
-export async function getPopulation(county, state) {
+export async function getPopulationByBlockGroup(
+	blockGroup,
+	tract,
+	county,
+	state
+) {
 	try {
 		const params = new URLSearchParams({
-			get: "POP",
-			for: `county:${county.slice(2)}`,
-			in: `state:${state}`,
+			get: "B01003_001E",
+			for: `block group:${blockGroup}`,
+			in: `state:${state}+county:${county}+tract:${tract}`,
 			key: import.meta.env.VITE_CENSUS_API_KEY,
 		});
-		const queryString = decodeURIComponent(params.toString());
 
 		const response = await axios.get(
-			`${import.meta.env.VITE_CENSUS_BASE_URL}?${queryString}`
+			`https://api.census.gov/data/2019/acs/acs5?${params.toString()}`
 		);
-		return response.data[1];
+
+		if (response.data && response.data.length > 1) {
+			return response.data[1][0]; // Extract the population data
+		} else {
+			throw new Error("No data available for the specified parameters.");
+		}
 	} catch (error) {
+		console.error("Error fetching data:", error.message);
 		throw error;
 	}
+}
+
+function getDateOneYearAgo() {
+	const today = new Date();
+	const oneYearAgo = new Date(
+		today.getFullYear() - 1,
+		today.getMonth(),
+		today.getDate()
+	);
+
+	return oneYearAgo.toISOString().split("T")[0];
 }
 
 export async function fetchCrimeData(params) {

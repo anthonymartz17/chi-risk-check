@@ -12,13 +12,16 @@
 	--bg-primary: "#B4B4B8";
 	--danger: #c40c0c;
 	--warning: #ff6500;
-	--info: #121481;
 	--light-dark: #373a40;
+	--info: #121481;
 }
 
 body {
 	line-height: 1;
 	background-color: black;
+}
+.tooltip .ag-chart-tooltip-content {
+	background-color: gold;
 }
 .title_h1 {
 	font-size: 2em;
@@ -53,7 +56,7 @@ body {
 	width: fit-content;
 }
 .primary_btn {
-	/* border: 1px solid var(--warning); */
+	width: 100%;
 	padding: 0.5em 2em;
 	border-radius: 10px;
 	transition: all 150ms ease-in-out;
