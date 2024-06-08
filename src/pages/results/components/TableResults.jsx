@@ -68,7 +68,7 @@ export default function TableResults({ crimes, isLoading }) {
 										<td>{ele.arrest ? "Yes" : "No"}</td>
 										<td>
 											<Link to={ele.id}>
-												<button className="primary_btn">See Details</button>
+												<button className="primary_btn">More</button>
 											</Link>
 										</td>
 									</tr>

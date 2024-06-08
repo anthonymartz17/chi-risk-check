@@ -1,6 +1,6 @@
 import axios from "axios";
 const BASE_URL = import.meta.env.VITE_SOCRATA_BASE;
-const GOOGLE_API_KEY = import.meta.env.VITE_GOOGLE_API_KEY;
+
 
 export async function geocodeAddressIO({ address, radius }) {
 	const startDate = getDateOneYearAgo();
