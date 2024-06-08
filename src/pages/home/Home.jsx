@@ -22,7 +22,7 @@ export default function Home({ onGetCrimeData, isLoading }) {
 
 	return (
 		<div className={classes.home}>
-			<h1 className={classes.home_hero_text}>How risky is it to visit?</h1>
+			<h1 className={classes.home_hero_text}>Discover Your Neighborhood's Crime Trends Now</h1>
 			<Form onGetCrimeData={onGetCrimeData} isLoading={isLoading} />
 			<div className={classes.home_skyline}>
 				<img className={classes.skyline} src={skyline} alt="" />
